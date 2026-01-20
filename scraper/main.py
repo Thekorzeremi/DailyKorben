@@ -1,13 +1,15 @@
 import json
+from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 
 options = Options()
-options.add_argument('--headless=new')
+options.add_argument("--headless=new")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--disable-gpu")
+
 driver = webdriver.Chrome(options=options)
 
 url = "https://korben.info/"
@@ -49,7 +51,12 @@ for card in cards:
 
     count += 1
 
-with open("../daily-korben-front/public/data/data.json", "w", encoding="utf-8") as f:
+output_dir = Path("../daily-korben-front/public/data")
+output_dir.mkdir(parents=True, exist_ok=True)
+
+output_path = output_dir / "data.json"
+
+with open(output_path, "w", encoding="utf-8") as f:
     json.dump({"Extracted datas": scrapped_data}, f, ensure_ascii=False, indent=4)
 
 print("Scrapping ended !")
