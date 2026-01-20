@@ -1,5 +1,4 @@
 <script>
-    import data from "./data.json"
     let articles = [];
 
     fetch("/data/data.json")
